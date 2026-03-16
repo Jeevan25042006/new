@@ -20,10 +20,18 @@ build/
 .env
 .env.*
 
+# Frontend
+node_modules/
+blinkpass-frontend/dist/
+blinkpass-frontend/.vite/
+
 # Editor
 .idea/
 .vscode/
 *.swp
 *.db-shm
 *.db-wal
-__pycache__/
+
+# OS
+.DS_Store
+*.log
