@@ -65,7 +65,7 @@ export async function requestOtp(phone: string): Promise<{ message: string; otp?
   }, false);
 }
 
-export async function verifyOtp(phone: string, code: string): Promise<AuthTokens & { session_id: string }> {
+export async function verifyOtp(phone: string, code: string): Promise<AuthTokens> {
   const data = await request<{ access_token: string; refresh_token: string; session_id: string }>(
     '/auth/otp/verify',
     { method: 'POST', body: JSON.stringify({ phone, code }) },
@@ -75,7 +75,6 @@ export async function verifyOtp(phone: string, code: string): Promise<AuthTokens
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
     sessionId: data.session_id,
-    session_id: data.session_id,
   };
 }
 
@@ -129,7 +128,7 @@ export async function getBiometricAuthOptions(email: string): Promise<Record<str
 
 export async function verifyBiometricAuth(
   credential: Record<string, unknown>,
-): Promise<AuthTokens & { session_id: string }> {
+): Promise<AuthTokens> {
   const data = await request<{ access_token: string; refresh_token: string; session_id: string }>(
     '/auth/biometric/verify',
     { method: 'POST', body: JSON.stringify({ credential }) },
@@ -139,7 +138,6 @@ export async function verifyBiometricAuth(
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
     sessionId: data.session_id,
-    session_id: data.session_id,
   };
 }
 
@@ -219,7 +217,7 @@ export async function revokeApp(clientId: string): Promise<void> {
 export async function verifyRecoveryCode(
   code: string,
   identifier: string,
-): Promise<AuthTokens & { session_id: string }> {
+): Promise<AuthTokens> {
   const data = await request<{ access_token: string; refresh_token: string; session_id: string }>(
     '/user/recovery/verify',
     { method: 'POST', body: JSON.stringify({ code, identifier }) },
@@ -229,7 +227,6 @@ export async function verifyRecoveryCode(
     accessToken: data.access_token,
     refreshToken: data.refresh_token,
     sessionId: data.session_id,
-    session_id: data.session_id,
   };
 }
 

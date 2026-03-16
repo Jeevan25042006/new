@@ -173,7 +173,6 @@ function SessionMini({ notify: _notify }: { notify: (m: string, t: Notification[
           <span className="badge badge-success">Active</span>
         </div>
       ))}
-      {void 0}
     </div>
   );
 }
