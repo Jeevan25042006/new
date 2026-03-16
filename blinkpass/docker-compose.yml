@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  blinkpass:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      - SECRET_KEY=${SECRET_KEY:-change-this-in-production}
+      - VAULT_KEY=${VAULT_KEY:-change-this-in-production-32x}
+      - SMTP_HOST=${SMTP_HOST:-}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - SMTP_FROM=${SMTP_FROM:-noreply@blinkpass.com}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost}
+      - RP_ID=${RP_ID:-localhost}
+      - RP_NAME=${RP_NAME:-BlinkPass}
+    volumes:
+      - blinkpass_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  blinkpass_data:
