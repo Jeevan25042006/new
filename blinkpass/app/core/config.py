@@ -1,11 +1,25 @@
-import secrets
+import logging
+from pydantic import model_validator
 from pydantic_settings import BaseSettings
+
+logger = logging.getLogger(__name__)
+
+_DEFAULT_SECRET_KEY = "dev-secret-key-change-in-production-please"
+_DEFAULT_VAULT_KEY = "6465762d76617566742d6b65792d3132"  # exactly 32 hex chars
 
 
 class Settings(BaseSettings):
     APP_NAME: str = "BlinkPass"
-    SECRET_KEY: str = secrets.token_hex(32)
-    VAULT_KEY: str = secrets.token_hex(16)  # 32 hex chars = 16 bytes, HKDF expands to 32
+    SECRET_KEY: str = _DEFAULT_SECRET_KEY
+    VAULT_KEY: str = _DEFAULT_VAULT_KEY
+
+    @model_validator(mode="after")
+    def warn_default_keys(self) -> "Settings":
+        if self.SECRET_KEY == _DEFAULT_SECRET_KEY:
+            logger.warning("SECRET_KEY is using the default dev value. Set SECRET_KEY env var in production.")
+        if self.VAULT_KEY == _DEFAULT_VAULT_KEY:
+            logger.warning("VAULT_KEY is using the default dev value. Set VAULT_KEY env var in production.")
+        return self
 
     DATABASE_URL: str = "sqlite:///./blinkpass.db"
 

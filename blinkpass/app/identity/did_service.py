@@ -38,9 +38,7 @@ def build_did_document(user_id: str) -> dict:
                 "id": f"{did}#key-1",
                 "type": "Ed25519VerificationKey2020",
                 "controller": did,
-                "publicKeyMultibase": "z" + base64.b58encode(base64.b64decode(pub_b64)).decode()
-                if False
-                else pub_b64,
+                "publicKeyMultibase": "z" + base64.b58encode(base64.b64decode(pub_b64)).decode(),
             }
         ],
         "authentication": [f"{did}#key-1"],

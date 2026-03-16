@@ -12,7 +12,9 @@
 (function (window) {
   'use strict';
 
-  var BASE_URL = 'http://localhost:8005';
+  var BASE_URL = (typeof window !== 'undefined' && window.location && window.location.origin)
+    ? window.location.origin
+    : 'http://localhost:8005';
 
   function generateCodeVerifier() {
     var array = new Uint8Array(32);
