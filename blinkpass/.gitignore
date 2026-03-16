@@ -1,0 +1,29 @@
+# Key files — never commit private keys
+blinkpass_ed25519.key
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# Environment
+.env
+.env.*
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.db-shm
+*.db-wal
+__pycache__/
